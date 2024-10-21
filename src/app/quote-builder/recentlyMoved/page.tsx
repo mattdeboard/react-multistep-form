@@ -23,7 +23,7 @@ export default function Page() {
 
       <div>
         <label htmlFor="recentlyMoved-no" className="mr-2">
-          Own
+          No
         </label>
         <input
           {...register?.('recentlyMoved')}
