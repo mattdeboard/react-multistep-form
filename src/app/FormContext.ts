@@ -18,7 +18,7 @@ export type QuoteFormData = {
   mailingAddress1: null | string;
   mailingAddress2: null | string;
   homeowner: null | 'rent' | 'own';
-  recentlyMoved: null | boolean;
+  recentlyMoved: null | 'yes' | 'no';
   maritalStatus: null | 'single' | 'married' | 'widowed';
   // I reckon for now this is just an array of VINs
   vehicles: string[];

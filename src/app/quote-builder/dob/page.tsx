@@ -1,16 +1,15 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { QuoteForm } from '../types';
+import RegisterContext from '@/app/RegisterContext';
+import { useContext } from 'react';
 
 export default function Page() {
-  const { register } = useForm<QuoteForm>();
-
+  const register = useContext(RegisterContext);
   return (
     <div>
       <label className="mr-2">Date of Birth</label>
       <input
-        {...register('primaryDriverDob', { required: true })}
+        {...register?.('primaryDriverDob', { required: true })}
         type="date"
         required
       />

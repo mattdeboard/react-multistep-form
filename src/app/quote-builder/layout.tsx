@@ -1,11 +1,12 @@
 'use client';
 
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import FormContext from '../FormContext';
 import useFormStateMachine from '../useFormStateMachine';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { QuoteForm } from './types';
 import { usePathname, useRouter } from 'next/navigation';
+import RegisterContext from '../RegisterContext';
 
 export default function Layout({
   children,
@@ -16,7 +17,7 @@ export default function Layout({
   const formCtx = useContext(FormContext);
   const [formState, setFormState] = useState(formCtx);
   const pathname = usePathname();
-  const { handleSubmit } = useForm<QuoteForm>();
+  const { handleSubmit, register } = useForm<QuoteForm>();
   const firstStep = 'primaryDriverName';
   const { currentStep, nextStep, stepForward } = useFormStateMachine({
     [firstStep]: {
@@ -72,22 +73,24 @@ export default function Layout({
   }, []);
 
   const onSubmit: SubmitHandler<QuoteForm> = (data) => {
-    setFormState!((formState) => ({ ...formState, ...data }));
+    setFormState!({ ...formState, ...data });
     stepForward();
     router.push(`/quote-builder/${nextStep}`);
   };
 
   return (
     <FormContext.Provider value={{ ...formState, setFormState }}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid-rows-2 space-y-2">{children}</div>
-        <button
-          type="submit"
-          className="btn bg-blue-500 text-white w-full mt-4"
-        >
-          Continue
-        </button>
-      </form>
+      <RegisterContext.Provider value={register}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid-rows-2 space-y-2">{children}</div>
+          <button
+            type="submit"
+            className="btn bg-blue-500 text-white w-full mt-4"
+          >
+            Continue
+          </button>
+        </form>
+      </RegisterContext.Provider>
     </FormContext.Provider>
   );
 }
