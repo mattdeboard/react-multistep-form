@@ -19,46 +19,47 @@ export default function Layout({
   const pathname = usePathname();
   const { handleSubmit, register } = useForm<QuoteForm>();
   const firstStep = 'primaryDriverName';
-  const { currentStep, nextStep, stepForward } = useFormStateMachine({
-    [firstStep]: {
-      next: 'dob',
-    },
-    dob: {
-      prev: 'primaryDriverName',
-      next: 'mailingAddress',
-    },
-    mailingAddress: {
-      prev: 'dob',
-      next: 'homeowner',
-    },
-    homeowner: {
-      prev: 'mailingAddress',
-      next: 'recentlyMoved',
-    },
-    recentlyMoved: {
-      prev: 'homeowner',
-      next: 'maritalStatus',
-    },
-    maritalStatus: {
-      prev: 'recentlyMoved',
-      next: 'vehicles',
-    },
-    vehicles: {
-      prev: 'maritalStatus',
-      next: 'financing',
-    },
-    financing: {
-      prev: 'vehicles',
-      next: 'drivers',
-    },
-    drivers: {
-      prev: 'financing',
-      next: 'review',
-    },
-    review: {
-      prev: 'drivers',
-    },
-  });
+  const { currentStep, nextDisabled, nextStep, stepForward } =
+    useFormStateMachine({
+      [firstStep]: {
+        next: 'dob',
+      },
+      dob: {
+        prev: 'primaryDriverName',
+        next: 'mailingAddress',
+      },
+      mailingAddress: {
+        prev: 'dob',
+        next: 'homeowner',
+      },
+      homeowner: {
+        prev: 'mailingAddress',
+        next: 'recentlyMoved',
+      },
+      recentlyMoved: {
+        prev: 'homeowner',
+        next: 'maritalStatus',
+      },
+      maritalStatus: {
+        prev: 'recentlyMoved',
+        next: 'vehicles',
+      },
+      vehicles: {
+        prev: 'maritalStatus',
+        next: 'financing',
+      },
+      financing: {
+        prev: 'vehicles',
+        next: 'drivers',
+      },
+      drivers: {
+        prev: 'financing',
+        next: 'review',
+      },
+      review: {
+        prev: 'drivers',
+      },
+    });
 
   useEffect(() => {
     const currentStepFromPath = pathname.slice(1).split('/')[1] ?? firstStep;
@@ -84,6 +85,7 @@ export default function Layout({
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid-rows-2 space-y-2">{children}</div>
           <button
+            disabled={nextDisabled}
             type="submit"
             className="btn bg-blue-500 text-white w-full mt-4"
           >
