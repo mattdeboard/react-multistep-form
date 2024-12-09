@@ -2,10 +2,28 @@
 
 This repo exists as a reference utilization of my [`useFormStateMachine`](https://gist.github.com/mattdeboard/f5ff93d6f3db78aae3aaf50002bad154)
 hook. I used Root's [quote builder](https://quote.joinroot.com/landing)
-as the model application. There's not 1:1 parity of features but that
-wasn't the goal.
+as the model application.
 
 ## Architecture
+
+### `useFormStateMachine`
+
+As mentioned above, this repo is meant to demonstrate usage of
+`useFormStateMachine`. You can see that hook's invocation
+[here](./src/app/quote-builder/layout.tsx#L22).
+
+In fact, all of the logic for navigating through & submitting the form
+live in that same module. This makes individual sub-forms (e.g.
+[homeowner status](./src/app/quote-builder/homeowner/page.tsx),
+[marital status](./src/app/quote-builder/maritalStatus/page.tsx), etc.)
+extremely simple. This demonstrates the strength of
+`useFormStateMachine` in separating the form's navigational concerns
+from the data-gathering concerns of the form. Each sub-form in the
+wizard is a straightforward collection of text and form fields, rather
+than being ["complected"](https://www.youtube.com/watch?v=SxdOUGdseq4)
+with all the conditional logic inherent in a multi-step form.
+
+### Routing
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with
 [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
@@ -16,6 +34,10 @@ I chose the App router, instead of the Pages router, because I prefer
 the nested folder-based routing system. The Pages router would have been
 fine, given the size & simplicity of this application. I simply prefer
 the App router paradigm.
+
+However, nearly all routing here is done client-side. All components are
+client-side components (hence the `'use client'` declaration at the top
+of each file).
 
 ## Getting Started
 
