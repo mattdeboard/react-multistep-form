@@ -71,7 +71,7 @@ export default function Layout({
         `/quote-builder/${currentStep === firstStep ? '' : currentStep}`,
       );
     }
-  }, []);
+  }, [currentStep, pathname, router]);
 
   const onSubmit: SubmitHandler<QuoteForm> = (data) => {
     setFormState!({ ...formState, ...data });
