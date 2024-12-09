@@ -1,4 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React Multistep Form
+
+This repo exists as a reference utilization of my [`useFormStateMachine`](https://gist.github.com/mattdeboard/f5ff93d6f3db78aae3aaf50002bad154)
+hook. I used Root's [quote builder](https://quote.joinroot.com/landing)
+as the model application. There's not 1:1 parity of features but that
+wasn't the goal.
+
+## Architecture
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with
+[`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+This application uses NextJS's [App
+Router](https://nextjs.org/docs/app/building-your-application/routing).
+I chose the App router, instead of the Pages router, because I prefer
+the nested folder-based routing system. The Pages router would have been
+fine, given the size & simplicity of this application. I simply prefer
+the App router paradigm.
 
 ## Getting Started
 
